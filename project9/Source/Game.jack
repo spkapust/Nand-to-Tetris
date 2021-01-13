@@ -1,0 +1,72 @@
+/**Controller for Game*/
+class Game {
+
+	field int currentplayer, winner;
+	field Array board;
+
+   constructor Game new(){   // set up empty board
+	let board = Array.new(9);
+	let board[0]=0;
+	let board[1]=0;
+	let board[2]=0;
+	let board[3]=0;
+	let board[4]=0;
+	let board[5]=0;
+	let board[6]=0;
+	let board[7]=0;
+	let board[8]=0;
+	let currentplayer = 1;
+	return this;
+   }
+
+   method void dispose() {
+      do board.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   method boolean validMove(int position){
+	if (board[position] = 0) {return true;}
+	else {return false;}
+   }
+
+   method void addXO(int position){
+	let board[position]=currentplayer;
+	return;
+   }
+
+  method int getcurrentPlayer(){
+	return currentplayer;
+  }
+
+  method void switchcurrentPlayer(){
+	if(currentplayer = 1) {let currentplayer=2;}
+	else {let currentplayer=1;}
+	return;
+  }
+
+  method boolean checkWin(){
+	var boolean win;
+	let win = false;
+
+	// Check horizontal
+	if( (board[0] = board[1]) & (board[1] = board[2]) & ~(board[0] = 0)) {let win = true; let winner = board[0]; do Screen.drawLine(145,53,355,53);}
+	if( (board[3] = board[4]) & (board[4] = board[5]) & ~(board[3] = 0)) {let win = true; let winner = board[3]; do Screen.drawLine(145,127,355,127);}
+	if( (board[6] = board[7]) & (board[7] = board[8]) & ~(board[6] = 0)) {let win = true; let winner = board[6]; do Screen.drawLine(145,201,355,201);}
+
+	// Check vertical
+	if( (board[0] = board[3]) & (board[3] = board[6]) & ~(board[0] = 0)) {let win = true; let winner = board[0]; do Screen.drawLine(181,17,181,237);}
+	if( (board[1] = board[4]) & (board[4] = board[7]) & ~(board[1] = 0)) {let win = true; let winner = board[1]; do Screen.drawLine(250,17,250,237);}
+	if( (board[2] = board[5]) & (board[5] = board[8]) & ~(board[2] = 0)) {let win = true; let winner = board[2]; do Screen.drawLine(319,17,319,237);}
+
+	// Check diagonal
+	if( (board[0] = board[4]) & (board[4] = board[8]) & ~(board[0] = 0)) {let win = true; let winner = board[0]; do Screen.drawLine(145,17,355,237);}
+	if( (board[2] = board[4]) & (board[4] = board[6]) & ~(board[2] = 0)) {let win = true; let winner = board[2]; do Screen.drawLine(145,237,355,17);}
+	
+	return win;
+  }
+
+  method int getWinner(){
+	return winner;
+  }
+}

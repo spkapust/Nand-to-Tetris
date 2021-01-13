@@ -1,0 +1,53 @@
+/**Draws the board*/
+
+class Gameboard {
+
+   function void drawFreshBoard(){ // draw empty game board
+	do Screen.setColor(true);
+	// optional code for making board black square with white lines and shapes, 
+	// initially used to get a good idea of board space
+	// do Screen.drawRectangle(145,17,355,237); 
+	// do Screen.setColor(false);
+	do Screen.drawLine(217,17,217,237);
+	do Screen.drawLine(283,17,283,237);
+	do Screen.drawLine(145,89,355,89);
+	do Screen.drawLine(145,165,355,165);
+	return;
+   }
+
+   function void clearBoardRegion(){
+	do Screen.setColor(false);
+	do Screen.drawRectangle(145,17,355,237); 
+	do Screen.setColor(true);
+	return;	
+   }
+
+   function void addXO(int symbol, int position){  // get the center of the selected board position
+	var int x, y;
+	if (position = 0) { let x = 181; let y = 53;}
+	if (position = 1) { let x = 250; let y = 53;}
+	if (position = 2) { let x = 319; let y = 53;}
+	if (position = 3) { let x = 181; let y = 127;}
+	if (position = 4) { let x = 250; let y = 127;}
+	if (position = 5) { let x = 319; let y = 127;}
+	if (position = 6) { let x = 181; let y = 201;}
+	if (position = 7) { let x = 250; let y = 201;}
+	if (position = 8) { let x = 319; let y = 201;}
+	
+	if (symbol = 1) { //draw x
+		do Screen.drawLine(x-10,y-10,x+10,y+10);
+		do Screen.drawLine(x-10,y+10,x+10,y-10);	
+	}
+	if (symbol = 2) { //draw o
+		do Screen.drawCircle(x,y,10);
+		do Screen.setColor(false);
+		do Screen.drawCircle(x,y,9);
+		do Screen.setColor(true);
+        }
+	return;
+
+   }
+}
+
+
+

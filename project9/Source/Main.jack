@@ -1,0 +1,91 @@
+/** Initializes a Tic Tac Toe game and starts running it. */
+
+class Main {
+    function void main() {
+	var Game game;
+	var int key, position;
+	var boolean gameon, selection;
+	
+	let gameon = true;
+
+	while(gameon){
+
+		do Output.moveCursor(22,0);
+		do Output.printString("Use keys 0-8 to select board position. X goes first.");
+
+	
+		let game = Game.new();
+		do Gameboard.drawFreshBoard();
+	
+
+		while (~(game.checkWin())){
+			let key = Main.readInput();
+			if ( (key > 47) & (key < 57) ) {
+
+				let position = key - 48;
+
+				if (game.validMove(position)) {
+					do game.addXO(position);
+					do Gameboard.addXO(game.getcurrentPlayer(),position);
+					do game.switchcurrentPlayer();
+				}
+                	} 
+		}
+     
+	
+        
+		do Output.moveCursor(22,0);
+		if (game.getWinner() = 1) {do Output.printString("                 X wins! Play again? y/n               ");}
+		else {do Output.printString("                 O wins! Play again? y/n              ");}
+		
+		
+	
+		let selection = false;
+		while(~selection){
+			let key = Main.readInput();
+			if ((key = 89) | (key = 121)){let selection = true;}
+			if ((key = 78) | (key = 110)){let selection = true; let gameon = false;}
+		}
+
+		do game.dispose();
+
+		//clear board
+		do Gameboard.clearBoardRegion();
+		
+	}
+	
+	do Output.moveCursor(22,0); //clear winning message
+	do Output.printString("                                                      ");
+	do Main.printThanks();
+	
+	
+	return;
+    }
+
+
+    function int readInput(){ // doing this instead of Keyboard.readChar because I don't want output to the screen
+	var int key, c;
+	let key = 0;
+	while (key = 0) {
+                let key = Keyboard.keyPressed();
+        }
+        while (~(key = 0)) {
+		let c = key;
+                let key = Keyboard.keyPressed();
+        }
+	return c;
+    }
+
+    function void printThanks(){
+	do Output.moveCursor(6,0);
+	do Output.printString(" /xoxoxoxo /xo                           /xo                 /xo"); // no need for print line because each line takes up entire row
+	do Output.printString("|__  xo__/| ox                          | ox                | ox"); 
+   	do Output.printString("   | ox   | xoxoxox   /oxoxox  /xoxoxox | xo   /xo  /oxoxoxo| xo");
+   	do Output.printString("   | xo   | ox__  ox |____  ox| ox__  ox| ox  /xo/ /ox_____/| ox"); 
+   	do Output.printString("   | ox   | xo  | xo  /oxoxoxo| xo  | xo| xoxoxo/ |  oxoxox |__/"); 
+   	do Output.printString("   | xo   | ox  | ox /ox__  ox| ox  | ox| ox_  xo  |____  ox    "); 
+   	do Output.printString("   | ox   | xo  | xo|  oxoxoxo| xo  | xo| xo |  xo /xoxoxox/ /xo"); 
+   	do Output.printString("   |__/   |__/  |___ |_______/|__/  |__/|__/  |__/|_______/ |__ ");
+	return;
+    }
+}
